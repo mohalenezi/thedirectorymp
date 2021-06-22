@@ -1,46 +1,32 @@
 import { ThemeProvider } from "styled-components";
-import DirectList from "./componenets/DirectList";
-import { GlobalStyle } from "./styles";
-import { useState } from "react";
-import DirectItem from "./componenets/DirectItem";
-import perfumes from "./products";
-import Home from "./componenets/Home";
+import DirectList from "./components/DirectList";
+import { GlobalStyle } from "./style";
+import DirectItem from "./components/DirectItem";
+import DirectDetail from "./components/DirectDetail";
+import movies from "./data";
+import Home from "./components/Home";
 
 import { Route, Switch } from "react-router";
-import NavBar from "./componenets/NavBar";
+import NavBar from "./components/NavBar";
 
 const theme = {
-  light: {
-    mainColor: "grey",
-    backgroundColor: "lightyellow",
-    red: "red",
-  },
-  dark: {
-    mainColor: "lightyellow",
-    backgroundColor: "grey",
-    red: "red",
-  },
+  mainColor: "grey",
+  backgroundColor: "lightyellow",
+  red: "red",
 };
 
 function App() {
-  const [currentTheme, setCurrentTheme] = useState("light");
-
-  const toggleTheme = () => {
-    if (currentTheme === "light") setCurrentTheme("dark");
-    else setCurrentTheme("light");
-  };
-
   return (
     <div>
-      <ThemeProvider theme={theme[currentTheme]}>
+      <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
+        <NavBar />
         <Switch>
-          <Route path="/perfumes/:perfumeSlug">
-            <DirectItem perfumes={_newperfume} perfumeDelete={perfumeDelete} />
+          <Route path="/movies/:movieId">
+            <DirectDetail movies={movies} />
           </Route>
-          <Route path="/perfumes">
-            <DirectList perfumes={_newperfume} perfumeDelete={perfumeDelete} />
+          <Route path="/movies">
+            <DirectList movies={movies} />
           </Route>
           <Route exact path="/">
             <Home />
